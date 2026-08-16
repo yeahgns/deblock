@@ -1,4 +1,4 @@
-<img width="2172" height="724" alt="deblock_logo" src="https://github.com/user-attachments/assets/b5844b6b-4eeb-4395-bbe9-b50ebd2c92cb" />
+<img width="2172" height="378" alt="deblock_logo" src="https://github.com/user-attachments/assets/e448a63d-51b3-4e84-93de-326d28382a9f" /><svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2172 378" width="2172" height="378">
 
 <div align="center">
 
