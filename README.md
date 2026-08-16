@@ -1,17 +1,15 @@
-🇺🇸 English | 🇧🇷 [Português](README.pt-br.md) | 🇪🇸 [Español](README.es.md)
+<img width="2172" height="724" alt="deblock_logo" src="https://github.com/user-attachments/assets/b5844b6b-4eeb-4395-bbe9-b50ebd2c92cb" />
 
-# Deblock
+<div align="center">
+
+![Static Badge](https://img.shields.io/badge/Release-1.0-green)
+
+</div>
+
+Deblock
+=============
 
 A terminal wizard that spins up a Minecraft Java Edition server in a handful of keystrokes. No jar-hunting, no hand-editing `server.properties`, no googling "how do I accept the Minecraft EULA" at 11pm.
-
-```
-██████╗ ███████╗██████╗ ██╗      ██████╗  ██████╗██╗  ██╗
-██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗██╔════╝██║ ██╔╝
-██║  ██║█████╗  ██████╔╝██║     ██║   ██║██║     █████╔╝
-██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██║     ██╔═██╗
-██████╔╝███████╗██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗
-╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝
-```
 
 ## Why this exists
 
