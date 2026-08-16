@@ -36,7 +36,17 @@ const banner = `
 
 var validNameRe = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 
+// clearScreen wipes the terminal (including scrollback, on terminals that
+// support it) using raw ANSI escape codes before the banner is printed - no
+// extra dependency needed, huh/lipgloss already assume an ANSI-capable
+// terminal. If stdout isn't a real terminal (e.g. piped output), this is
+// harmless: the escape codes are just written through as-is.
+func clearScreen() {
+	fmt.Print("\x1b[H\x1b[2J\x1b[3J")
+}
+
 func main() {
+	clearScreen()
 	fmt.Println(titleStyle.Render(banner))
 
 	cwd, err := os.Getwd()
@@ -271,7 +281,7 @@ func offerToRun(serverDir, memory string) {
 
 func fatalIf(err error) {
 	if err != nil {
-		fmt.Println(errStyle.Render("Erro: " + err.Error()))
+		fmt.Println(errStyle.Render("Error: " + err.Error()))
 		os.Exit(1)
 	}
 }
