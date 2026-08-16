@@ -2,7 +2,7 @@
 
 # Deblock
 
-A terminal wizard that spins up a vanilla Minecraft Java Edition server in a handful of keystrokes — no jar-hunting, no hand-editing `server.properties`, no googling "how do I accept the Minecraft EULA" at 11pm.
+A terminal wizard that spins up a Minecraft Java Edition server in a handful of keystrokes. No jar-hunting, no hand-editing `server.properties`, no googling "how do I accept the Minecraft EULA" at 11pm.
 
 ```
 ██████╗ ███████╗██████╗ ██╗      ██████╗  ██████╗██╗  ██╗
@@ -15,7 +15,11 @@ A terminal wizard that spins up a vanilla Minecraft Java Edition server in a han
 
 ## Why this exists
 
-Setting up a Minecraft server the manual way means finding the right download link, remembering which `-Xmx`/`-Xms` flags to pass Java, editing `server.properties` in a text editor, and accepting an EULA file by hand before anything even boots. None of that is hard, exactly, it's just tedious enough that it gets in the way of the part you actually care about: playing with your friends. Deblock turns all of that into a short back-and-forth in your terminal.
+Setting up a Minecraft server the manual way means finding the right download link, remembering which `-Xmx`/`-Xms` flags to pass Java, editing `server.properties` in a text editor, and accepting an EULA file by hand before anything even boots.
+
+None of that is hard, really. It's just tedious enough to get in the way of the part you actually care about: playing with your friends.
+
+Deblock turns all of that into a short back-and-forth in your terminal.
 
 ## How it works
 
@@ -47,7 +51,7 @@ $ deblock
 | macOS | ✅ | needs a JDK (21+ recommended) |
 | Windows | ✅ | needs a JDK (21+ recommended) |
 
-Older Minecraft versions may require an older Java version — if the server won't boot, that's the first thing to check.
+Older Minecraft versions may require an older Java version. If the server won't boot, that's the first thing to check.
 
 Only **Vanilla** shows up in the menu right now. Paper and Fabric support is already implemented and tested under the hood (see [Known limitations](#known-limitations)).
 
@@ -56,7 +60,7 @@ Only **Vanilla** shows up in the menu right now. Paper and Fabric support is alr
 There are no prebuilt binaries yet, so for now you'll need [Go](https://go.dev/dl/) 1.24+ installed:
 
 ```bash
-git clone https://github.com/<your-username>/deblock.git
+git clone https://github.com/yeahgns/deblock.git
 cd deblock
 go run .
 ```

@@ -2,7 +2,7 @@
 
 # Deblock
 
-Um assistente de terminal que sobe um servidor Minecraft Java Edition (vanilla) em poucos toques de teclado — sem caçar link de download, sem editar `server.properties` na mão, sem precisar pesquisar "como aceitar a EULA do Minecraft" às 23h.
+Um assistente de terminal que sobe um servidor Minecraft Java Edition em poucos toques de teclado. Sem caçar link de download, sem editar `server.properties` na mão, sem precisar pesquisar "como aceitar a EULA do Minecraft" às 11 horas da noite.
 
 ```
 ██████╗ ███████╗██████╗ ██╗      ██████╗  ██████╗██╗  ██╗
@@ -15,7 +15,11 @@ Um assistente de terminal que sobe um servidor Minecraft Java Edition (vanilla) 
 
 ## Por que isso existe
 
-Configurar um servidor Minecraft do jeito manual significa achar o link certo de download, lembrar quais flags `-Xmx`/`-Xms` passar pro Java, editar o `server.properties` num editor de texto, e aceitar um arquivo de EULA na mão antes de qualquer coisa sequer ligar. Nada disso é difícil, exatamente — é só chato o suficiente pra atrapalhar a parte que você realmente quer: jogar com os amigos. O Deblock transforma tudo isso numa conversinha rápida no terminal.
+Configurar um servidor Minecraft do jeito manual significa achar o link certo de download, lembrar quais flags `-Xmx`/`-Xms` passar pro Java, editar o `server.properties` num editor de texto, e aceitar um arquivo de EULA na mão antes de qualquer coisa sequer ligar.
+
+Nada disso é difícil, na verdade. Só chato o suficiente pra atrapalhar a parte que você realmente quer: jogar com os amigos.
+
+O Deblock transforma tudo isso numa conversinha rápida no terminal.
 
 ## Como funciona
 
@@ -47,7 +51,7 @@ $ deblock
 | macOS | ✅ | precisa de um JDK (21+ recomendado) |
 | Windows | ✅ | precisa de um JDK (21+ recomendado) |
 
-Versões mais antigas do Minecraft podem exigir uma versão mais antiga do Java — se o servidor não subir, é a primeira coisa a checar.
+Versões mais antigas do Minecraft podem exigir uma versão mais antiga do Java. Se o servidor não subir, é a primeira coisa a checar.
 
 Só o **Vanilla** aparece no menu por enquanto. O suporte a Paper e Fabric já está implementado e testado por baixo do capô (veja [Limitações conhecidas](#limitações-conhecidas)).
 
@@ -56,7 +60,7 @@ Só o **Vanilla** aparece no menu por enquanto. O suporte a Paper e Fabric já e
 Ainda não tem binário pronto pra baixar, então por enquanto você precisa do [Go](https://go.dev/dl/) 1.24+ instalado:
 
 ```bash
-git clone https://github.com/<seu-usuario>/deblock.git
+git clone https://github.com/yeahgns/deblock.git
 cd deblock
 go run .
 ```

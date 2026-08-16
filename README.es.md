@@ -2,7 +2,7 @@
 
 # Deblock
 
-Un asistente de terminal que levanta un servidor de Minecraft Java Edition (vanilla) en un puñado de pasos — sin buscar el enlace de descarga correcto, sin editar `server.properties` a mano, sin tener que googlear "cómo aceptar el EULA de Minecraft" a las 11 de la noche.
+Un asistente de terminal que levanta un servidor de Minecraft Java Edition en un puñado de pasos. Sin buscar el enlace de descarga correcto, sin editar `server.properties` a mano, sin tener que googlear "cómo aceptar el EULA de Minecraft" a las 11 de la noche.
 
 ```
 ██████╗ ███████╗██████╗ ██╗      ██████╗  ██████╗██╗  ██╗
@@ -15,7 +15,11 @@ Un asistente de terminal que levanta un servidor de Minecraft Java Edition (vani
 
 ## Por qué existe
 
-Configurar un servidor de Minecraft a mano significa encontrar el enlace de descarga correcto, acordarte de qué flags `-Xmx`/`-Xms` pasarle a Java, editar el `server.properties` en un editor de texto, y aceptar un archivo de EULA a mano antes de que nada arranque siquiera. Nada de eso es difícil en sí, es solo lo bastante tedioso como para interponerse en lo que realmente te importa: jugar con tus amigos. Deblock convierte todo eso en una charla corta en la terminal.
+Configurar un servidor de Minecraft a mano significa encontrar el enlace de descarga correcto, acordarte de qué flags `-Xmx`/`-Xms` pasarle a Java, editar el `server.properties` en un editor de texto, y aceptar un archivo de EULA a mano antes de que nada arranque siquiera.
+
+Nada de eso es difícil en realidad. Es solo lo bastante tedioso como para interponerse en lo que realmente te importa: jugar con tus amigos.
+
+Deblock convierte todo eso en una charla corta en la terminal.
 
 ## Cómo funciona
 
@@ -47,7 +51,7 @@ $ deblock
 | macOS | ✅ | necesita un JDK (21+ recomendado) |
 | Windows | ✅ | necesita un JDK (21+ recomendado) |
 
-Versiones más antiguas de Minecraft pueden requerir una versión más vieja de Java — si el servidor no arranca, es lo primero que hay que revisar.
+Versiones más antiguas de Minecraft pueden requerir una versión más vieja de Java. Si el servidor no arranca, es lo primero que hay que revisar.
 
 Por ahora solo aparece **Vanilla** en el menú. El soporte para Paper y Fabric ya está implementado y probado por debajo (mirá [Limitaciones conocidas](#limitaciones-conocidas)).
 
@@ -56,7 +60,7 @@ Por ahora solo aparece **Vanilla** en el menú. El soporte para Paper y Fabric y
 Todavía no hay binarios listos para descargar, así que por ahora necesitás [Go](https://go.dev/dl/) 1.24+ instalado:
 
 ```bash
-git clone https://github.com/<tu-usuario>/deblock.git
+git clone https://github.com/yeahgns/deblock.git
 cd deblock
 go run .
 ```
