@@ -132,7 +132,3 @@ deblock/
 - Deblock doesn't expose your server to the internet (port forwarding, tunnels, etc.) — that's on you, on purpose, since it depends heavily on your own network setup.
 - No prebuilt binaries yet — building from source with Go is currently the only install path.
 - Each loader talks to a third-party public API (Mojang, PaperMC, Fabric). If one of them changes its response format, that specific loader may need a fix — they're isolated in their own files under `internal/loaders` specifically so that's a small patch, not a rewrite.
-
-## License
-
-MIT
