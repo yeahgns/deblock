@@ -60,7 +60,7 @@ Only **Vanilla** shows up in the menu right now. Paper and Fabric support is alr
 curl -sSL https://raw.githubusercontent.com/yeahgns/deblock/main/install.sh | bash
 ```
 
-If the `mc-deblock` command isn't recognized after installing, add `~/.local/bin`
+If the `deblock` command isn't recognized after installing, add `~/.local/bin`
 to your PATH:
 
 ```bash
@@ -70,14 +70,14 @@ source ~/.zshrc
 
 ### Windows
 Download the `.zip` from the [latest release](https://github.com/yeahgns/deblock/releases/latest),
-extract it, and run `mc-deblock.exe`.
+extract it, and run `deblock.exe`.
 
 ## Usage
 
 Once installed, run:
 
-- **Linux / macOS:** `mc-deblock`
-- **Windows:** `mc-deblock.exe`
+- **Linux / macOS:** `deblock`
+- **Windows:** `deblock.exe`
 
 You'll be asked for a server name, a Minecraft version (defaults to the latest release), and the basics of `server.properties` (MOTD, max players, port, difficulty, gamemode, whitelist, online-mode, memory). At the end it asks if you want to start the server right away.
 

@@ -1,14 +1,14 @@
 version: 2
 
-project_name: mc-deblock
+project_name: deblock
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: mc-deblock
-    binary: mc-deblock
+  - id: deblock
+    binary: deblock
     main: ./main.go
     env:
       - CGO_ENABLED=0
@@ -21,7 +21,7 @@ builds:
       - arm64
 
 archives:
-  - id: mc-deblock-archive
+  - id: deblock-archive
     formats: [tar.gz]
     name_template: >-
       {{ .ProjectName }}_{{ .Os }}_{{ .Arch }}

@@ -1,7 +1,7 @@
 set -euo pipefail
 
 REPO="yeahgns/deblock"
-BINARY_NAME="mc-deblock"
+BINARY_NAME="deblock"
 
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 ARCH="$(uname -m)"
@@ -9,12 +9,12 @@ ARCH="$(uname -m)"
 case "$ARCH" in
   x86_64) ARCH="amd64" ;;
   aarch64|arm64) ARCH="arm64" ;;
-  *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
+  *) echo "Architecture not supported: $ARCH"; exit 1 ;;
 esac
 
 case "$OS" in
   linux|darwin) ;;
-  *) echo "Unsupported operating system: $OS"; exit 1 ;;
+  *) echo "Operating system not supported: $OS"; exit 1 ;;
 esac
 
 ASSET="${BINARY_NAME}_${OS}_${ARCH}.tar.gz"
@@ -38,7 +38,7 @@ chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
 rm -rf "$TMP_DIR"
 
 echo ""
-echo "Installed in: ${INSTALL_DIR}/${BINARY_NAME}"
+echo "Installed at: ${INSTALL_DIR}/${BINARY_NAME}"
 if ! command -v "$BINARY_NAME" >/dev/null 2>&1; then
   echo "Warning: ${INSTALL_DIR} is not in your PATH."
   echo "Add this line to your ~/.bashrc or ~/.zshrc:"
