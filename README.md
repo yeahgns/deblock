@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Static Badge](https://img.shields.io/badge/Release-1.0-green)
+![Static Badge](https://img.shields.io/badge/Release-1.0.2-green)
 
 </div>
 
