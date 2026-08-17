@@ -55,7 +55,7 @@ Only **Vanilla** shows up in the menu right now. Paper and Fabric support is alr
 
 ## Installation
 
-There are no prebuilt binaries yet, so for now you'll need [Go](https://go.dev/dl/) 1.24+ installed:
+There are no prebuilt binaries yet, so for now you'll need [Git](https://git-scm.com/) and [Go](https://go.dev/dl/) 1.24+ installed:
 
 ```bash
 git clone https://github.com/yeahgns/deblock.git
