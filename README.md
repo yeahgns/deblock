@@ -1,4 +1,4 @@
-<img width="2172" height="378" alt="deblock_logo" src="https://github.com/user-attachments/assets/e448a63d-51b3-4e84-93de-326d28382a9f" /><svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2172 378" width="2172" height="378">
+<img width="2172" height="378" alt="deblock_logo" src="https://github.com/user-attachments/assets/e448a63d-51b3-4e84-93de-326d28382a9f" />
 
 <div align="center">
 
@@ -55,31 +55,29 @@ Only **Vanilla** shows up in the menu right now. Paper and Fabric support is alr
 
 ## Installation
 
-There are no prebuilt binaries yet, so for now you'll need [Git](https://git-scm.com/) and [Go](https://go.dev/dl/) 1.24+ installed:
-
+### Linux / macOS
 ```bash
-git clone https://github.com/yeahgns/deblock.git
-cd deblock
-go run .
+curl -sSL https://raw.githubusercontent.com/yeahgns/deblock/main/install.sh | bash
 ```
 
-Or build a standalone binary you can reuse without recompiling:
+If the `mc-deblock` command isn't recognized after installing, add `~/.local/bin`
+to your PATH:
 
 ```bash
-go build -o deblock .
-./deblock        # Linux/Mac
-deblock.exe      # Windows
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc   # or ~/.bashrc, depending on your shell
+source ~/.zshrc
 ```
+
+### Windows
+Download the `.zip` from the [latest release](https://github.com/yeahgns/deblock/releases/latest),
+extract it, and run `mc-deblock.exe`.
 
 ## Usage
 
-Just run it and answer the prompts — Deblock creates the server folder right where you run it from, no need to type a path:
+Once installed, run:
 
-```bash
-go run .
-# or, if you built it:
-./deblock
-```
+- **Linux / macOS:** `mc-deblock`
+- **Windows:** `mc-deblock.exe`
 
 You'll be asked for a server name, a Minecraft version (defaults to the latest release), and the basics of `server.properties` (MOTD, max players, port, difficulty, gamemode, whitelist, online-mode, memory). At the end it asks if you want to start the server right away.
 
@@ -91,38 +89,12 @@ Run Deblock again inside that same folder and it'll notice the existing install:
 - **Reinstall from scratch** — wipe the jar and download it again
 - **Just start it** — skip configuration entirely
 
-## Useful commands
+Or start it directly without going through the wizard:
 
 ```bash
-# run the wizard
-go run .
-
-# run the test suite
-go test ./...
-
-# start an already-configured server without going through the wizard
 cd my-server-folder
 ./start.sh       # Linux/Mac
 start.bat        # Windows
-```
-
-## Structure
-
-```
-deblock/
-├── README.md
-├── README.pt-br.md
-├── README.es.md
-├── LICENSE
-├── go.mod
-├── go.sum
-├── main.go
-├── main_test.go
-└── internal/
-    ├── loaders/       # talks to the Mojang/PaperMC/Fabric APIs
-    ├── download/       # downloads the server.jar with a progress bar
-    ├── props/          # reads and writes server.properties
-    └── startscript/    # generates start.sh / start.bat
 ```
 
 ## Known limitations
@@ -130,5 +102,9 @@ deblock/
 - Only Vanilla is exposed in the menu right now. Paper and Fabric are fully implemented (`internal/loaders`) but intentionally hidden until they get more real-world testing.
 - One server per folder — there's no multi-server dashboard, just run Deblock again in a different folder for a second server.
 - Deblock doesn't expose your server to the internet (port forwarding, tunnels, etc.) — that's on you, on purpose, since it depends heavily on your own network setup.
-- No prebuilt binaries yet — building from source with Go is currently the only install path.
 - Each loader talks to a third-party public API (Mojang, PaperMC, Fabric). If one of them changes its response format, that specific loader may need a fix — they're isolated in their own files under `internal/loaders` specifically so that's a small patch, not a rewrite.
+
+## Contributing
+
+Want to work on Deblock itself (project structure, running from source, releasing)?
+See [CONTRIBUTING.md](CONTRIBUTING.md).
