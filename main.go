@@ -32,7 +32,7 @@ const banner = `
 ██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██║     ██╔═██╗
 ██████╔╝███████╗██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗
 ╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝
-        Minecraft server, unblocked. | by yeahgns
+        Minecraft server, unblocked. — by yeahgns
 `
 
 var validNameRe = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
@@ -77,7 +77,7 @@ func validateName(s string) error {
 }
 
 func runFreshInstall(serverDir string) {
-
+	// For now, only Vanilla is available in the setup menu
 	loader := loaders.Vanilla
 	fmt.Println(dimStyle.Render("\nLoader: Vanilla (Paper e Fabric in the next versions)"))
 
@@ -133,7 +133,7 @@ func setupTunnel(port int) {
 		return
 	}
 
-	playit.PrintManualSteps(secretKey, port)
+	playit.FinishSetup(secretKey, port)
 }
 
 func handleExistingServer(serverDir, propsPath string) {

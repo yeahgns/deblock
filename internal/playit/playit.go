@@ -8,8 +8,10 @@ import (
 	"io"
 	"math/big"
 	"net/http"
+	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/charmbracelet/huh"
@@ -17,17 +19,16 @@ import (
 
 const apiBase = "https://api.playit.gg"
 
-// PromptEnable asks the user whether they want Deblock to set up a
-// playit.gg tunnel for this server. It makes clear, up front, that a free
-// playit.gg account is required.
-
 func PromptEnable() bool {
 	var enabled bool
 	_ = huh.NewConfirm().
 		Title("Expose this server to the internet via playit.gg?").
-		Description("Free, no port forwarding or router changes needed. Requires a free\n" +
-			"playit.gg account — Deblock will open your browser once so you can\n" +
-			"approve it there.").
+		Description("Free, no port forwarding or router changes needed. Mainly useful if\n" +
+			"you're running this on a home network - if this machine already has\n" +
+			"a public IP (a VPS/dedicated server), you probably don't need this.\n" +
+			"Requires a free playit.gg account and a one-time browser approval\n" +
+			"(any device works - doesn't have to be this machine, so this is fine\n" +
+			"on headless/SSH-only setups too).").
 		Value(&enabled).
 		Run()
 	return enabled
@@ -66,12 +67,15 @@ func Claim() (string, error) {
 	}
 
 	claimURL := "https://playit.gg/claim/" + code
-	fmt.Println("\nOpening your browser to link this server with your playit.gg account:")
+	fmt.Println("\nOpen this URL to link this server with your playit.gg account:")
 	fmt.Println("  " + claimURL)
-	fmt.Println("(If it doesn't open automatically, copy and paste that URL yourself.)")
+	fmt.Println("Trying to open it in a local browser now, but it doesn't have to be this")
+	fmt.Println("machine - if you're on a headless server (SSH-only, no browser here),")
+	fmt.Println("just copy that URL to your phone or laptop instead. Deblock will keep")
+	fmt.Println("waiting either way.")
 	openBrowser(claimURL)
 
-	fmt.Println("\nWaiting for you to approve it in the browser (up to 2 minutes)...")
+	fmt.Println("\nWaiting for you to approve it (up to 2 minutes)...")
 
 	const attempts = 40
 	const interval = 3 * time.Second
@@ -94,26 +98,64 @@ func Claim() (string, error) {
 	return "", fmt.Errorf("timed out waiting for approval in the browser")
 }
 
-func PrintManualSteps(secretKey string, port int) {
-	fmt.Println("\nDeblock linked this server to your playit.gg account. A couple of manual")
-	fmt.Println("steps are still needed - playit.gg doesn't allow automating these yet:")
+func FinishSetup(secretKey string, port int) {
+	fmt.Println("\nDeblock linked this server to your playit.gg account.")
 
-	switch runtime.GOOS {
-	case "linux":
-		fmt.Println("\n1. Point the agent at this secret and start it:")
-		fmt.Printf("     echo 'secret_key = \"%s\"' | sudo tee /etc/playit/playit.toml\n", secretKey)
-		fmt.Println("     sudo playit start")
-	default: // darwin, windows
-		fmt.Println("\n1. Run the playit agent with this secret key (see the agent's own docs")
-		fmt.Println("   for how to provide it on your system):")
-		fmt.Printf("     %s\n", secretKey)
+	if runtime.GOOS == "linux" && runLinuxSetup(secretKey) {
+		fmt.Println(okMsg())
+	} else {
+		printManualAgentSteps(secretKey)
 	}
 
-	fmt.Printf("2. On the page that's about to open, create a tunnel pointing at local\n")
-	fmt.Printf("   port %d (protocol TCP, type \"Minecraft Java\").\n", port)
-	fmt.Println("\nOpening the playit.gg dashboard now...")
+	dashboardURL := "https://playit.gg/account/agents"
+	fmt.Printf("\nNow create a tunnel pointing at local port %d (protocol TCP, type \"Minecraft Java\")\n", port)
+	fmt.Println("on this page:")
+	fmt.Println("  " + dashboardURL)
+	fmt.Println("Trying to open it in a local browser now, but same as before - any device")
+	fmt.Println("works, this doesn't have to be the machine running the server.")
+	openBrowser(dashboardURL)
+}
 
-	openBrowser("https://playit.gg/account/agents")
+func okMsg() string {
+	return "The agent is configured and running."
+}
+
+func runLinuxSetup(secretKey string) bool {
+	fmt.Println("Pointing the agent at this secret (you may be asked for your sudo password)...")
+
+	write := exec.Command("sudo", "tee", "/etc/playit/playit.toml")
+	write.Stdin = strings.NewReader(fmt.Sprintf("secret_key = %q\n", secretKey))
+	write.Stdout = io.Discard
+	write.Stderr = os.Stderr
+	if err := write.Run(); err != nil {
+		fmt.Println("Couldn't write the agent's config automatically:", err)
+		return false
+	}
+
+	fmt.Println("Starting the agent...")
+	start := exec.Command("sudo", "playit", "start")
+	start.Stdin = os.Stdin
+	start.Stdout = os.Stdout
+	start.Stderr = os.Stderr
+	if err := start.Run(); err != nil {
+		fmt.Println("Couldn't start the agent automatically:", err)
+		return false
+	}
+
+	return true
+}
+
+func printManualAgentSteps(secretKey string) {
+	switch runtime.GOOS {
+	case "linux":
+		fmt.Println("Here's what to run by hand instead:")
+		fmt.Printf("  echo 'secret_key = \"%s\"' | sudo tee /etc/playit/playit.toml\n", secretKey)
+		fmt.Println("  sudo playit start")
+	default:
+		fmt.Println("Run the playit agent with this secret key (see the agent's own docs for")
+		fmt.Println("how to provide it on your system):")
+		fmt.Printf("  %s\n", secretKey)
+	}
 }
 
 func exchangeSecret(code string) (string, error) {
