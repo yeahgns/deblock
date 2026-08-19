@@ -13,6 +13,7 @@ import (
 
 	"mcserverwizard/internal/download"
 	"mcserverwizard/internal/loaders"
+	"mcserverwizard/internal/playit"
 	"mcserverwizard/internal/props"
 	"mcserverwizard/internal/startscript"
 )
@@ -31,16 +32,11 @@ const banner = `
 ██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██║     ██╔═██╗
 ██████╔╝███████╗██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗
 ╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝
-        Minecraft server, unblocked. — by yeahgns
+        Minecraft server, unblocked. | by yeahgns
 `
 
 var validNameRe = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 
-// clearScreen wipes the terminal (including scrollback, on terminals that
-// support it) using raw ANSI escape codes before the banner is printed - no
-// extra dependency needed, huh/lipgloss already assume an ANSI-capable
-// terminal. If stdout isn't a real terminal (e.g. piped output), this is
-// harmless: the escape codes are just written through as-is.
 func clearScreen() {
 	fmt.Print("\x1b[H\x1b[2J\x1b[3J")
 }
@@ -81,7 +77,7 @@ func validateName(s string) error {
 }
 
 func runFreshInstall(serverDir string) {
-	// For now, only Vanilla is available in the setup menu
+
 	loader := loaders.Vanilla
 	fmt.Println(dimStyle.Render("\nLoader: Vanilla (Paper e Fabric in the next versions)"))
 
@@ -101,6 +97,8 @@ func runFreshInstall(serverDir string) {
 		return
 	}
 
+	setupTunnel(cfg.Port)
+
 	fatalIf(os.MkdirAll(serverDir, 0o755))
 
 	jarPath := filepath.Join(serverDir, "server.jar")
@@ -115,6 +113,27 @@ func runFreshInstall(serverDir string) {
 	fmt.Println(dimStyle.Render("  (Run the wizard again in that same folder to reconfigure without downloading everything all over again.)"))
 
 	offerToRun(serverDir, memory)
+}
+
+func setupTunnel(port int) {
+	if !playit.PromptEnable() {
+		return
+	}
+
+	if !playit.AgentInstalled() {
+		playit.PrintInstallInstructions()
+		return
+	}
+
+	fmt.Println(dimStyle.Render("\nLinking this server to your playit.gg account..."))
+	secretKey, err := playit.Claim()
+	if err != nil {
+		fmt.Println(errStyle.Render("Couldn't set up the playit.gg tunnel: " + err.Error()))
+		fmt.Println(dimStyle.Render("No problem - the server will still work locally/on your LAN."))
+		return
+	}
+
+	playit.PrintManualSteps(secretKey, port)
 }
 
 func handleExistingServer(serverDir, propsPath string) {
